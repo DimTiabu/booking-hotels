@@ -1,0 +1,1 @@
+create schema if not exists hotels_schema;

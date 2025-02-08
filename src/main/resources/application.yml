@@ -1,0 +1,19 @@
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+  main:
+    allow-circular-references: true
+  jpa:
+    generate-ddl: true
+    open-in-view: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/hotels_db
+    username: postgres
+    password: postgres
+    hikari:
+      schema: hotels_schema
+      connection-init-sql: create schema if not exists hotels_schema
+      connection-timeout: 10000
+  data:
+    mongodb:
+      uri: mongodb://root:root@localhost:27017/booking_statistics?authSource=admin
