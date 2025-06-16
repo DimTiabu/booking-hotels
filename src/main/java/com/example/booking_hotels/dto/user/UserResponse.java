@@ -1,4 +1,4 @@
-package com.example.booking_hotels.web.model.user;
+package com.example.booking_hotels.dto.user;
 
 import com.example.booking_hotels.model.UserRole;
 import lombok.Data;

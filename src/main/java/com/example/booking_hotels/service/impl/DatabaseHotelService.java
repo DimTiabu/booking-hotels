@@ -6,7 +6,7 @@ import com.example.booking_hotels.repository.HotelSpecification;
 import com.example.booking_hotels.repository.impl.HotelRepository;
 import com.example.booking_hotels.service.HotelService;
 import com.example.booking_hotels.utils.BeanUtils;
-import com.example.booking_hotels.web.model.hotel.HotelFilter;
+import com.example.booking_hotels.dto.hotel.HotelFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;

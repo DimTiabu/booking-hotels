@@ -1,4 +1,4 @@
-package com.example.booking_hotels.web.model.room;
+package com.example.booking_hotels.dto.room;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -8,8 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.List;
 
 @Data
 @NoArgsConstructor

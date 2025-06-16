@@ -1,9 +1,9 @@
 package com.example.booking_hotels.mapper;
 
 import com.example.booking_hotels.model.Booking;
-import com.example.booking_hotels.web.model.booking.BookingListResponse;
-import com.example.booking_hotels.web.model.booking.BookingRequest;
-import com.example.booking_hotels.web.model.booking.BookingResponse;
+import com.example.booking_hotels.dto.booking.BookingListResponse;
+import com.example.booking_hotels.dto.booking.BookingRequest;
+import com.example.booking_hotels.dto.booking.BookingResponse;
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;

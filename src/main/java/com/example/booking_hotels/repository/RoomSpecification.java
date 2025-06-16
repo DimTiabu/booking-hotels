@@ -1,7 +1,7 @@
 package com.example.booking_hotels.repository;
 
 import com.example.booking_hotels.model.Room;
-import com.example.booking_hotels.web.model.room.RoomFilter;
+import com.example.booking_hotels.dto.room.RoomFilter;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.math.BigDecimal;

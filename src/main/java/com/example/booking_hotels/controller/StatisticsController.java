@@ -1,4 +1,4 @@
-package com.example.booking_hotels.web.controller;
+package com.example.booking_hotels.controller;
 
 import com.example.booking_hotels.service.KafkaStatisticsService;
 import jakarta.servlet.http.HttpServletResponse;

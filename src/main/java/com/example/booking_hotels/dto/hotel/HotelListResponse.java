@@ -1,4 +1,4 @@
-package com.example.booking_hotels.web.model.hotel;
+package com.example.booking_hotels.dto.hotel;
 
 import lombok.*;
 import java.util.List;

@@ -1,6 +1,5 @@
-package com.example.booking_hotels.web.model.booking;
+package com.example.booking_hotels.dto.booking;
 
-import com.example.booking_hotels.web.model.hotel.HotelResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

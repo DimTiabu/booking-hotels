@@ -3,8 +3,8 @@ package com.example.booking_hotels.mapper;
 import com.example.booking_hotels.model.Hotel;
 import com.example.booking_hotels.model.Room;
 import com.example.booking_hotels.service.HotelService;
-import com.example.booking_hotels.web.model.room.RoomRequest;
-import com.example.booking_hotels.web.model.room.RoomResponse;
+import com.example.booking_hotels.dto.room.RoomRequest;
+import com.example.booking_hotels.dto.room.RoomResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

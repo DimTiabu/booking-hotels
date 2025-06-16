@@ -1,12 +1,12 @@
-package com.example.booking_hotels.web.controller;
+package com.example.booking_hotels.controller;
 
 import com.example.booking_hotels.mapper.UserMapper;
 import com.example.booking_hotels.model.User;
 import com.example.booking_hotels.model.kafka.UserRegistrationEvent;
 import com.example.booking_hotels.service.UserService;
-import com.example.booking_hotels.web.model.user.UserListResponse;
-import com.example.booking_hotels.web.model.user.UserRequest;
-import com.example.booking_hotels.web.model.user.UserResponse;
+import com.example.booking_hotels.dto.user.UserListResponse;
+import com.example.booking_hotels.dto.user.UserRequest;
+import com.example.booking_hotels.dto.user.UserResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

@@ -1,12 +1,12 @@
-package com.example.booking_hotels.web.controller;
+package com.example.booking_hotels.controller;
 
 import com.example.booking_hotels.mapper.HotelMapper;
 import com.example.booking_hotels.model.Hotel;
 import com.example.booking_hotels.service.HotelService;
-import com.example.booking_hotels.web.model.hotel.HotelFilter;
-import com.example.booking_hotels.web.model.hotel.HotelListResponse;
-import com.example.booking_hotels.web.model.hotel.HotelRequest;
-import com.example.booking_hotels.web.model.hotel.HotelResponse;
+import com.example.booking_hotels.dto.hotel.HotelFilter;
+import com.example.booking_hotels.dto.hotel.HotelListResponse;
+import com.example.booking_hotels.dto.hotel.HotelRequest;
+import com.example.booking_hotels.dto.hotel.HotelResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

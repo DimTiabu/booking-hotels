@@ -1,7 +1,7 @@
 package com.example.booking_hotels.service;
 
 import com.example.booking_hotels.model.Hotel;
-import com.example.booking_hotels.web.model.hotel.HotelFilter;
+import com.example.booking_hotels.dto.hotel.HotelFilter;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
