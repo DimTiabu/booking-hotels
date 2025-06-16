@@ -12,6 +12,7 @@
 ![Static Badge](https://img.shields.io/badge/PostgreSQL-grey)
 ![Static Badge](https://img.shields.io/badge/MongoDB-grey)
 ![Static Badge](https://img.shields.io/badge/Kafka-grey)
+![Static Badge](https://img.shields.io/badge/Spring_Security-grey)
 ![Static Badge](https://img.shields.io/badge/MapStruct-grey)
 ![Static Badge](https://img.shields.io/badge/Lombok-grey)
 ![Static Badge](https://img.shields.io/badge/Gradle-grey)
@@ -35,43 +36,164 @@
 ```yaml
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/booking_db
+    url: jdbc:postgresql://localhost:5432/hotels_db
     username: your_user
     password: your_password
 
   data:
     mongodb:
-      uri: mongodb://localhost:27017/booking_db
+      uri: mongodb://localhost:27017/hotels_db
 ```
-3. **Создание базы данных в PostgreSQL и MongoDB (если она ещё не создана).**
+3. **Настройка баз данных в PostgreSQL и MongoDB в файле [docker-compose.yml](/docker/docker-compose.yml).**
+```yaml
+services:
+  postgres:
+    environment:
+      - POSTGRES_USER=your_user
+      - POSTGRES_PASSWORD=your_password
+      - POSTGRES_DB=hotels_db
+  mongodb:
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_DATABASE: booking_statistics
+```
+4. *Переход в директорию расположения файла docker-compose:*
 
+```sh
+    cd docker
+```
 
-4. **Сборка проекта:**
+5. *Запуск docker-compose:*
+
+```sh
+    docker-compose up -d
+```
+⏳ Проверка окончания запуска всех контейнеров: MongoDB, PostgreSQL, Kafka
+и Zookeeper:
+
+```sh
+    docker ps
+```
+**Переходить к следующему пункту можно,
+когда все контейнеры будут в статусе Up.**
+
+6. **Сборка проекта:**
 
 ```sh
   ./gradlew build
 ```
 
-5. **Запуск приложения:**
+7. **Запуск приложения:**
 
 ```sh
   ./gradlew bootRun
 ```
 ---
-## API и пользовательский интерфейс
+## API
 
-После запуска приложение доступно по адресу: http://localhost:8080
+После запуска приложение доступно по адресу: http://localhost:8080.
 
-### Основной функционал:
-* Просмотр списка отелей и их информации
-* Бронирование с выбором дат 
-* Просмотр списка бронирований 
-* Отправка и получение Kafka-сообщений 
-* Хранение дополнительной информации в MongoDB
+Так как пользовательский интерфейс отсутствует, 
+рекомендуется пользоваться приложением Postman.
 
-### Примеры API:
+## API эндпоинты
 
-* GET /api/hotels — список отелей
-* GET /api/hotels/{id} — подробности по отелю
-* POST /api/hotels/{id}/book — создание бронирования
-* GET /api/users/{id}/bookings — бронирования пользователя
+### 1. **HotelController** — `/api/hotel`
+
+| Метод  | Endpoint                           | Описание                                     | Авторизация     |
+| ------ | ---------------------------------- | -------------------------------------------- | --------------- |
+| GET    | `/api/hotel`                       | Получить все отели                           | `USER`, `ADMIN` |
+| GET    | `/api/hotel/filter?name=Marriott`  | Получить отели по фильтру (по имени, городу) | `USER`, `ADMIN` |
+| GET    | `/api/hotel/{id}`                  | Получить отель по ID                         | `USER`, `ADMIN` |
+| POST   | `/api/hotel`                       | Создание нового отеля                        | `ADMIN`         |
+| PUT    | `/api/hotel/{id}`                  | Обновление отеля                             | `ADMIN`         |
+| DELETE | `/api/hotel/{id}`                  | Удаление отеля                               | `ADMIN`         |
+| POST   | `/api/hotel/rate/{id}?newMark=4.8` | Обновление рейтинга отеля                    | `USER`, `ADMIN` |
+
+**Пример запроса (POST /api/hotel):**
+
+```json
+{
+  "name": "Hotel Astoria",
+  "city": "Paris",
+  "address": "Champs-Élysées",
+  "rating": 4.5
+}
+```
+
+---
+
+### 2. **RoomController** — `/api/room`
+
+| Метод  | Endpoint                            | Описание                            | Авторизация     |
+| ------ | ----------------------------------- | ----------------------------------- | --------------- |
+| GET    | `/api/room?priceTo=10000&hotelId=1` | Получить список номеров с фильтрами | `USER`, `ADMIN` |
+| GET    | `/api/room/{id}`                    | Получить номер по ID                | `USER`, `ADMIN` |
+| POST   | `/api/room`                         | Создание нового номера              | `ADMIN`         |
+| PUT    | `/api/room/{id}`                    | Обновление номера                   | `ADMIN`         |
+| DELETE | `/api/room/{id}`                    | Удаление номера                     | `ADMIN`         |
+
+**Пример запроса (POST /api/room):**
+
+```json
+{
+  "hotelId": 1,
+  "number": "101",
+  "type": "STANDARD",
+  "price": 9500.0
+}
+```
+
+---
+
+### 3. **BookingController** — `/api/booking`
+
+| Метод | Endpoint       | Описание                          | Авторизация     |
+| ----- | -------------- | --------------------------------- | --------------- |
+| GET   | `/api/booking` | Получить список всех бронирований | `ADMIN`         |
+| POST  | `/api/booking` | Создать бронирование              | `USER`, `ADMIN` |
+
+**Пример запроса (POST /api/booking):**
+
+```json
+{
+  "roomId": 5,
+  "checkInDate": "2025-07-01",
+  "checkOutDate": "2025-07-05"
+}
+```
+
+---
+
+### 4. **UserController** — `/api/user`
+
+| Метод  | Endpoint         | Описание                       | Авторизация     |
+| ------ | ---------------- | ------------------------------ | --------------- |
+| GET    | `/api/user`      | Получить всех пользователей    | `USER`, `ADMIN` |
+| GET    | `/api/user/{id}` | Получить пользователя по ID    | `USER`, `ADMIN` |
+| POST   | `/api/user`      | Регистрация пользователя       | —               |
+| PUT    | `/api/user/{id}` | Обновление данных пользователя | `USER`, `ADMIN` |
+| DELETE | `/api/user/{id}` | Удаление пользователя          | `USER`, `ADMIN` |
+
+**Пример запроса (POST /api/user):**
+
+```json
+{
+  "username": "newuser",
+  "password": "securePass",
+  "email": "newuser@example.com"
+}
+```
+
+---
+
+### 5. **StatisticsController** — `/api/statistics`
+
+| Метод | Endpoint                 | Описание                                      | Авторизация |
+| ----- | ------------------------ | --------------------------------------------- | ----------- |
+| GET   | `/api/statistics/export` | Экспорт статистики бронирований в формате CSV | `ADMIN`     |
+
+**Ответ:** Файл `statistics.csv` будет загружен автоматически.
+
+---
